@@ -5,11 +5,19 @@ import hello.exception.exception.UserException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @Slf4j
 @RestController
@@ -39,6 +47,10 @@ public class ApiExceptionController {
     public String responseStatusEx2(){
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.bad", new IllegalArgumentException());
     }
+    @GetMapping("/api/default-handler-ex")
+    public String defaultException(@RequestParam Integer data){
+        return "ok";
+    }
 
     @Data
     @AllArgsConstructor
@@ -47,3 +59,4 @@ public class ApiExceptionController {
         private String name;
     }
 }
+
